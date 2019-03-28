@@ -1224,6 +1224,19 @@ public class PDFView extends RelativeLayout {
         return renderDuringScale;
     }
 
+    public void findText(String findWhat) {
+        if (pdfFile != null) {
+            pdfFile.findText(0 , findWhat);
+            Log.d(TAG, "findText: " + pdfFile.findTextCount());
+        }
+    }
+
+    public void findClose() {
+        if (pdfFile != null) {
+            pdfFile.findClose();
+        }
+    }
+
     /** Returns null if document is not loaded */
     public PdfDocument.Meta getDocumentMeta() {
         if (pdfFile == null) {

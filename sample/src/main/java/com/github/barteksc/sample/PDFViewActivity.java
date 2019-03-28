@@ -128,7 +128,7 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
 
     private void displayFromUri(Uri uri) {
         pdfFileName = getFileName(uri);
-
+        pdfView.findClose();  // todo check if is open
         pdfView.fromUri(uri)
                 .defaultPage(pageNumber)
                 .onPageChange(this)

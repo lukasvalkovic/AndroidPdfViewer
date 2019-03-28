@@ -37,8 +37,9 @@ android {
 }
 
 dependencies {
-    api 'com.github.barteksc:pdfium-android:1.9.0'
     implementation 'androidx.core:core:1.0.0-beta01'
+//    api 'com.github.barteksc:pdfium-android:1.9.0'
+    api (name: 'PdfiumAndroid-1.9.2', ext: 'aar')
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'

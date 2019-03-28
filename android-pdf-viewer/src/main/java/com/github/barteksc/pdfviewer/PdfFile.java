@@ -279,6 +279,45 @@ class PdfFile {
         }
     }
 
+    public boolean openTextPage(int pageIndex) throws PageRenderingException {
+        int docPage = documentPage(pageIndex);
+        if (docPage < 0) {
+            return false;
+        }
+
+        synchronized (lock) {
+            if (openedPages.indexOfKey(docPage) < 0) {
+                try {
+                    pdfiumCore.openTextPage(pdfDocument, docPage);
+                    openedPages.put(docPage, true);
+                    return true;
+                } catch (Exception e) {
+                    openedPages.put(docPage, false);
+                    throw new PageRenderingException(pageIndex, e);
+                }
+            }
+        }
+        return false;
+    }
+
+    public void findText(int pageIndex, String findWhat) {
+        synchronized (lock) {
+            pdfiumCore.textFindStart(pdfDocument, pageIndex, findWhat);
+        }
+    }
+
+    public int findTextCount() {
+        synchronized (lock) {
+            return pdfiumCore.textCount(pdfDocument);
+        }
+    }
+
+    public void findClose() {
+        synchronized (lock) {
+            pdfiumCore.textFindClose(pdfDocument);
+        }
+    }
+
     public boolean pageHasError(int pageIndex) {
         int docPage = documentPage(pageIndex);
         return !openedPages.get(docPage, false);
