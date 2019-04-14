@@ -50,6 +50,7 @@ import com.github.barteksc.pdfviewer.listener.OnRenderListener;
 import com.github.barteksc.pdfviewer.listener.OnTapListener;
 import com.github.barteksc.pdfviewer.model.PagePart;
 import com.github.barteksc.pdfviewer.scroll.ScrollHandle;
+import com.github.barteksc.pdfviewer.search.SearchResult;
 import com.github.barteksc.pdfviewer.source.AssetSource;
 import com.github.barteksc.pdfviewer.source.ByteArraySource;
 import com.github.barteksc.pdfviewer.source.DocumentSource;
@@ -1224,16 +1225,33 @@ public class PDFView extends RelativeLayout {
         return renderDuringScale;
     }
 
-    public void findText(String findWhat) {
+    public SearchResult startSearch(String query) {
         if (pdfFile != null) {
-            pdfFile.findText(0 , findWhat);
-            Log.d(TAG, "findText: " + pdfFile.findTextCount());
+            return pdfFile.startSearch(query);
+        } else {
+            return null;
         }
     }
 
-    public void findClose() {
+    public void stopSearch() {
         if (pdfFile != null) {
-            pdfFile.findClose();
+            pdfFile.stopSearch();
+        }
+    }
+
+    public int getSearchLength() {
+        if (pdfFile != null) {
+            return pdfFile.searchCountResult();
+        } else {
+            return -1;
+        }
+    }
+
+    public RectF mapRectToDevice(int pageIndex, int startX, int startY, int sizeX, int sizeY, int rotate, RectF bounds) {
+        if (pdfFile != null) {
+            return pdfFile.mapRectToDevice(pageIndex, startX, startY, sizeX, sizeY, rotate, bounds);
+        } else {
+            return null;
         }
     }
 

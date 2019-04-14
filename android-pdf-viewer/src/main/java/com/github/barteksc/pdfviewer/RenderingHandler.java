@@ -88,9 +88,7 @@ class RenderingHandler extends Handler {
 
     private PagePart proceed(RenderingTask renderingTask) throws PageRenderingException {
         PdfFile pdfFile = pdfView.pdfFile;
-//        pdfFile.openPage(renderingTask.page);
-        pdfFile.openTextPage(renderingTask.page);
-        pdfView.findText("ipsum");
+        pdfFile.openPage(renderingTask.page);
 
         int w = Math.round(renderingTask.width);
         int h = Math.round(renderingTask.height);
